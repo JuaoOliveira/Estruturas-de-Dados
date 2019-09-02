@@ -19,6 +19,4 @@ int main(){
     cin >> numDiscos;
 
     hanoi(numDiscos, 'A', 'B', 'C');
-
-
 }
