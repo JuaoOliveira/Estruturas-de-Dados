@@ -32,8 +32,8 @@ struct Deque {
         if(dir == tamVetor -1)
             if(redimensionar(tamVetor*2)) return true;
         
-        v[++dir] = elemento;
-        esq = 0; // se eu chamar v[esq] ele retorna o 1º elemento do deque
+        d[++dir] = elemento;
+        //esq = 0; // se eu chamar v[esq] ele retorna o 1º elemento do deque
         return false;
     }
 
@@ -41,6 +41,7 @@ struct Deque {
         if(dir == tamVetor -1)
             if(redimensionar(tamVetor*2)) return true;
         
+        d[++esq] = elemento;
         return false;
     }
 
