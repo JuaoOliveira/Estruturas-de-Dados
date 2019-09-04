@@ -17,12 +17,13 @@ int main(){
 
     inserir_esq(D,10);
     inserir_esq(D,1);
-    inserir_esq(D,7);
+     //inserir_esq(D,7);
 
 
 
-    for (int i = 0; i < D.tamVetor; i++) 
-        cout << "Elemento " << i+1 << ": " << D.vetor[i] << ' ' << endl;
+     for (int i = 0; i < D.tamVetor; i++) 
+         cout << "Elemento " << i+1 << ": " << D.vetor[i] << ' ' << endl;
 
-    //cout << D.tamVetor;
+    cout << "Tamanho do vetor: " << D.tamVetor << endl;
+    cout << "D.dir: " << D.dir << endl;
 }

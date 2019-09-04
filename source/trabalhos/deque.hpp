@@ -37,19 +37,6 @@ template <typename T> bool redimensionar_dir(Deque<T> &d, int novoTam){
     return false;
 }
 
-template <typename T> bool redimensionar_esq(Deque<T> &d, int novoTam){
-    T *novoVetor = new(nothrow) T[novoTam];
-
-    if(novoVetor == nullptr) return true;
-
-    for(int i = 0; i <= d.dir; ++i) novoVetor[i+1] = d.vetor[i]; // copia os valores para o novo vetor
-
-    delete[] d.vetor;
-    d.tamVetor = novoTam;
-    d.vetor = novoVetor;
-    return false;
-}
-
 template <typename T> bool inserir_dir(Deque<T> &d, T elemento){
     if(d.dir == d.tamVetor -1)
         if(redimensionar_dir(d, d.tamVetor*2)) return true;
@@ -68,10 +55,23 @@ template <typename T> bool desempilhar_dir(Deque<T> &d){
     return false;
 }
 
+template <typename T> bool redimensionar_esq(Deque<T> &d, int novoTam){
+    T *novoVetor = new(nothrow) T[novoTam];
+
+    if(novoVetor == nullptr) return true;
+
+    for(int i = 0; i <= d.dir; ++i) novoVetor[i+1] = d.vetor[i]; // copia os valores para o novo vetor
+
+    delete[] d.vetor;
+    d.tamVetor = novoTam;
+    d.vetor = novoVetor;
+    return false;
+}
+
 template <typename T> bool inserir_esq(Deque<T> &d, T elemento){
-    if(d.esq == d.tamVetor - (d.tamVetor+1))
+    if(d.esq == -1)
         if(redimensionar_esq(d, d.tamVetor+1)) return true;
-    
+      
     d.vetor[0] = elemento;
     return false;
 }
