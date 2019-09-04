@@ -11,10 +11,18 @@ int main(){
     //cout << D.vazio() << endl; //1 = True, 0 = False
 
     inserir_dir(D, 2);
-    inserir_dir(D, 5);
+    inserir_dir(D, 6);
+    inserir_dir(D, 3);
+    inserir_dir(D, 8);
 
-    desempilhar_dir(D);
+    inserir_esq(D,10);
+    inserir_esq(D,1);
+    inserir_esq(D,7);
+
+
 
     for (int i = 0; i < D.tamVetor; i++) 
-        cout << "Elemento " << i+1 << ": " << D.d[i] << ' ' << endl;
+        cout << "Elemento " << i+1 << ": " << D.vetor[i] << ' ' << endl;
+
+    //cout << D.tamVetor;
 }

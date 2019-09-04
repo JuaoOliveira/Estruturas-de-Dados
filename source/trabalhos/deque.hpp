@@ -3,21 +3,21 @@
 using namespace std;
 
 template <typename T> struct Deque{
-    T *d;
+    T *vetor;
     int dir, esq, tamVetor;
 };
 
 template <typename T> bool inicializar(Deque<T> &d){
-    d.d = new(nothrow) T[1];
+    d.vetor = new(nothrow) T[1];
 
-    if(d.d == nullptr) return true;
+    if(d.vetor == nullptr) return true;
 
     d.dir = -1; d.esq = -1; d.tamVetor = 1;
     return false;
     }
 
 template <typename T> void terminar(Deque<T> &d){
-    delete[] d;
+    delete[] d.vetor;
 }
 
 template <typename T> bool vazio(Deque<T> &d){
@@ -25,15 +25,28 @@ template <typename T> bool vazio(Deque<T> &d){
 }
 
 template <typename T> bool redimensionar_dir(Deque<T> &d, int novoTam){
-    T *w = new(nothrow) T[novoTam];
+    T *novoVetor = new(nothrow) T[novoTam];
 
-    if(w == nullptr) return true;
+    if(novoVetor == nullptr) return true;
 
-    for(int i = 0; i <= d.dir; ++i) w[i] = d.d[i];
+    for(int i = 0; i <= d.dir; ++i) novoVetor[i] = d.vetor[i];
 
-    delete[] d.d;
+    delete[] d.vetor;
     d.tamVetor = novoTam;
-    d.d = w;
+    d.vetor = novoVetor;
+    return false;
+}
+
+template <typename T> bool redimensionar_esq(Deque<T> &d, int novoTam){
+    T *novoVetor = new(nothrow) T[novoTam];
+
+    if(novoVetor == nullptr) return true;
+
+    for(int i = 0; i <= d.dir; ++i) novoVetor[i+1] = d.vetor[i]; // copia os valores para o novo vetor
+
+    delete[] d.vetor;
+    d.tamVetor = novoTam;
+    d.vetor = novoVetor;
     return false;
 }
 
@@ -41,8 +54,7 @@ template <typename T> bool inserir_dir(Deque<T> &d, T elemento){
     if(d.dir == d.tamVetor -1)
         if(redimensionar_dir(d, d.tamVetor*2)) return true;
     
-    ++d.dir; d.d[d.dir] = elemento;
-    //esq = 0; // se eu chamar v[esq] ele retorna o 1º elemento do deque
+    d.vetor[++d.dir] = elemento;
     return false;
 }
 
@@ -57,9 +69,13 @@ template <typename T> bool desempilhar_dir(Deque<T> &d){
 }
 
 template <typename T> bool inserir_esq(Deque<T> &d, T elemento){
-        if(d.esq == d.tamVetor -1)
-            if(redimensionar_dir(d, d.tamVetor*2)) return true;
-        
-        ++d.esq; d.d[d.esq] = elemento;
-        return false;
-    }
+    if(d.esq == d.tamVetor - (d.tamVetor+1))
+        if(redimensionar_esq(d, d.tamVetor+1)) return true;
+    
+    d.vetor[0] = elemento;
+    return false;
+}
+
+template <typename T> bool desempilhar_esq(Deque<T> &d, T elemento){
+    return false;
+}
