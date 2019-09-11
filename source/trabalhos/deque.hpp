@@ -1,4 +1,5 @@
 #include <new>
+#include <cmath>
 
 using namespace std;
 
@@ -12,7 +13,8 @@ template <typename T> bool inicializar(Deque<T> &d){
 
     if(d.vetor == nullptr) return true;
 
-    d.dir = -1; d.esq = -1; d.tamVetor = 1;
+    d.dir = d.esq = -1;
+    d.tamVetor = 1;
     return false;
     }
 
@@ -29,28 +31,45 @@ template <typename T> bool redimensionar(Deque<T> &d, int novoTam){
 
     if(novoVetor == nullptr) return true;
 
+    if(novoTam == 2){
+        d.dir = d.esq = 0;
+        for(int i = d.esq; i <= d.dir; ++i)
+            novoVetor[i] = d.vetor[i];
+        
+        d.tamVetor = novoTam;
+        delete[] d.vetor;
+        d.vetor = novoVetor;
+        return false;
+    } else {
     for(int i = d.esq; i <= d.dir; ++i)
-        novoVetor[i + ((d.tamVetor/2)-(d.tamVetor/4))] = d.vetor[i];
+        novoVetor[i + (novoTam/2 - (int) ceil(double(novoTam)/4.0))] = d.vetor[i];
 
     d.tamVetor = novoTam;
+    d.esq =  ((novoTam/2) - (int) ceil(double(novoTam)/4.0));
+    d.dir = ((novoTam/2) + (int) ceil(double(novoTam)/4.0)) - 1;
 
     delete[] d.vetor;
     d.vetor = novoVetor;
-    
-    d.esq = ((d.tamVetor/2)-(d.tamVetor/4));
-    d.dir = ((d.tamVetor/2)+(d.tamVetor/4)) - 1;
+
     return false;
+    }
 }
 
 template <typename T> bool inserir_dir(Deque<T> &d, T elemento){  
-    if(vazio(d))
-        d.esq = 0;
-    else if(d.dir == d.tamVetor-1)
+        if(vazio(d)){
+        ++d.dir; d.esq = 0;
+        d.vetor[d.dir] = elemento;
+        return false;
+    } else if(d.dir == d.tamVetor-1){
         if(redimensionar(d, d.tamVetor*2)) return true;
-    ++d.dir;
-    d.vetor[d.dir] = elemento;   
-
-    return false;
+        ++d.dir;
+        d.vetor[d.dir] = elemento;   
+        return false;
+    } else if(!vazio(d) && d.dir < d.tamVetor -1){
+        ++d.dir;
+        d.vetor[d.dir] = elemento;
+        return false;
+    }
 }
 
 template <typename T> T desempilhar_dir(Deque<T> &d){
