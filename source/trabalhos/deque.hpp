@@ -70,9 +70,10 @@ template <typename T> bool inserir_dir(Deque<T> &d, T elemento){
         d.vetor[d.dir] = elemento;
         return false;
     }
+    return false;
 }
 
-template <typename T> T desempilhar_dir(Deque<T> &d){
+template <typename T> T remover_dir(Deque<T> &d){
     T elemento = d.vetor[d.dir];
     --d.dir;
 
@@ -85,15 +86,24 @@ template <typename T> T desempilhar_dir(Deque<T> &d){
 
 
 template <typename T> bool inserir_esq(Deque<T> &d, T elemento){
-    if(d.esq == 0)
+    if(vazio(d)){
+        d.dir = d.esq = 0;
+        d.vetor[d.esq] = elemento;
+        return false;
+    } else if(d.esq == 0){
         if(redimensionar(d, d.tamVetor*2)) return true;
-
-    --d.esq; 
-    d.vetor[d.esq] = elemento;
+        --d.esq; 
+        d.vetor[d.esq] = elemento;
+        return false;
+    } else if(d.esq != 0 && !vazio(d)){
+        --d.esq; 
+        d.vetor[d.esq] = elemento;
+        return false;
+    }
     return false;
 }
 
-template <typename T> T desempilhar_esq(Deque<T> &d){
+template <typename T> T remover_esq(Deque<T> &d){
     T elemento = d.vetor[d.esq];
     ++d.esq;
     

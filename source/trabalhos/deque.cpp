@@ -13,11 +13,11 @@ int main(){
     inserir_dir(D, 2);
     inserir_dir(D, 6);
     inserir_dir(D, 3);
-    inserir_dir(D, 8);
+    //inserir_dir(D, 8);
 
     //inserir_esq(D,10);
     //inserir_esq(D,1);
-     //inserir_esq(D,7);
+    //inserir_esq(D,7);
 
     //cout << desempilhar_dir(D) << endl;
     //cout << desempilhar_dir(D) << endl;
@@ -26,9 +26,11 @@ int main(){
 
     //cout << D.tamVetor << endl;
 
-    
-    for(int i = 0; i <= 1; ++i){
-        cout << desempilhar_dir(D) << endl;
+    //cout << "desempilha_esq(): " << remover_esq(D) << endl;
+    cout << '\n';
+
+    for(int i = 0; i <= 2; ++i){
+        cout << remover_dir(D) << endl;
         cout << "D.dir: " << D.dir << endl;
         cout << "D.esq: " << D.esq << endl; 
         cout << "D.tamVetor: " << D.tamVetor << endl; 
