@@ -4,6 +4,23 @@ using std::nothrow;
 
 template <typename T>
 struct Conjunto{
+
+    struct Iterador {
+        T *p;
+
+        bool operator!= (const Iterador &I){
+            return p != I.p;
+        }
+        T& operator*(){
+            return *p;
+        }
+
+        Iterador& operator++(){
+            ++p;
+            return *this;
+        }
+    };
+
     T *v;
     int tamVetor, ult;
 
