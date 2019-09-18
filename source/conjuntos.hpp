@@ -19,6 +19,18 @@ struct Conjunto{
             ++p;
             return *this;
         }
+
+        Iterador inicio(){
+            Iterador i; 
+            i.p = &v[0];
+            return i;
+        }
+
+        Iterador fim(){
+            Iterador i;
+            i.p = &(v[ult+1]);
+            return i;
+        }
     };
 
     T *v;
