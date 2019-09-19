@@ -82,14 +82,15 @@ struct Dicionario {
         while(v[i].c != c) i++;
         
         v[i].x = v[ult].x; --ult;
-        if(redimensionar(tam_v/2)){
-            Par<bool,bool> r;
-            r.x = false;
-            r.y = true;
-            return r;
-        }
-            Par<bool,bool> r = {false, false};
-            return r;
+        if(!vazio() && 4*(ult+1) <= tam_v)
+            if(redimensionar(tam_v/2)){
+                Par<bool,bool> r;
+                r.x = false;
+                r.y = true;
+                return r;
+            }
+        Par<bool,bool> r = {true, false};
+        return r;
     }
 };
 
