@@ -27,8 +27,17 @@ struct Dicionario {
         return ult == -1;
     }
 
-    void redimensionar(){
+    void redimensionar(int tam_w){
+        Par<TC,TD> *w = new(nothrow) Par<TC,TD>[tam_w];
+        if(w == nullptr) return true;
 
+        for(int i = 0; i <= ult; i++)
+            tam_w[i] = v[i];
+        
+        delete[] v;
+        v = w;
+        tam_v = tam_w;
+        return false;
     }
 
     Par<TC,TD> procurar(TC c){

@@ -33,7 +33,7 @@ template <typename T> bool redimensionar(Deque<T> &d, int novoTam){
     if(novoVetor == nullptr) return true;
     //Passa os elementos da esquerda pra direita para o vetor novo
     if(d.dir >= d.esq)
-        for(int i =0; i < d.tamVetor;i++)
+        for(int i = 0; i < d.tamVetor;i++)
             novoVetor[i] = d.vetor[i];
     else if(d.dir < d.esq){
         int i;
