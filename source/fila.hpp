@@ -3,13 +3,14 @@ using std::nothrow;
 
 template <typename T> struct Fila{
 	T *v;
-	int p, u, tam_v;
+	int p, u, tam_v, n_elem;
 
 	bool inicializar(){
 		v = new(nothrow) T[1];
 		if(v == nullptr) return true;
 
 		p = u = -1;	tam_v = 1;
+		n_elem = 0;
 		return false;
 	}	
 
@@ -36,6 +37,7 @@ template <typename T> struct Fila{
 				++u;
 
 		v[u] = e;
+		++n_elem;
 		return false;
 	}
 
@@ -45,7 +47,7 @@ template <typename T> struct Fila{
 
 		else if(p < u){
 			++p;
-			if((u - p) + 1 <= tam_v/4) 
+			if(4 * n_elem <= tam_v) 
 				if(redimensionar(tam_v/2)) return true;
 		} 
 		else if(p > u){
@@ -53,9 +55,10 @@ template <typename T> struct Fila{
 			if(p == tam_v-1){
 				p = 0;
 			}
-			else 
-				p++;
-		}
+			if(4 * n_elem <= tam_v)
+				if(redimensionar(tam_v/2)) return true;
+		}	
+		--n_elem;
 		return false;
 	}
 };
