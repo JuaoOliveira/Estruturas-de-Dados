@@ -10,12 +10,9 @@ struct Pilha {
 
     bool inicializar(){
         v = new(nothrow) T[1];
-        
-        if(v == nullptr)
-            return true; //Return true se der ERRO!!!
+        if(v == nullptr) return true; //Return true se der ERRO!!!
 
-        ult = -1;
-        tam_v = 1;
+        ult = -1; tam_v = 1; 
         return false;    
     }
 
@@ -30,10 +27,9 @@ struct Pilha {
     bool redimensionar(int tam_w){
         T *w = new(nothrow) T[tam_w];
         
-        if(w == nullptr)
-            return true;
+        if(w == nullptr) return true;
         
-        for(int i=0; i <= ult; ++i)
+        for(int i=0; i <= ult; ++i) 
             w[i] = v[i];
 
         delete[] v;
@@ -46,19 +42,16 @@ struct Pilha {
 
     bool empilhar(T e){
         if(ult == tam_v - 1){
-            if(redimensionar(tam_v*2))
-                return true; //houve erro
+            if(redimensionar(tam_v*2)) return true; //houve erro
         }
-        ++ult;
-        v[ult] = e;
+        ++ult; v[ult] = e;
         return false; //sucesso
     }
 
     bool desempilhar(){
         --ult;
         if(!vazia() && 4*(ult+1) <= tam_v)
-            if(redimensionar(tam_v/2))
-                return true;
+            if(redimensionar(tam_v/2)) return true;
         return false;
     }
 
